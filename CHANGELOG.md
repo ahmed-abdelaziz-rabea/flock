@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.1.0](https://github.com/flock-php/flock/compare/v1.0.0...v1.1.0) (2026-11-09)
+
+
+### Features
+
+* **app:** ask for a GitHub star after setup and add support links to About ([bb3d1ab](https://github.com/flock-php/flock/commit/bb3d1ab7f8c630253ef703cdd6a2f4a1ea16f878))
+* **proxy:** proxy .test domains to local services ([ddff58c](https://github.com/flock-php/flock/commit/ddff58c2d6ab106cacfd7e4430f8a4a1a1cf0cbc)), closes [#73](https://github.com/flock-php/flock/issues/73)
+* **services:** read MySQL and MariaDB settings from my.cnf in the data directory ([e063ff0](https://github.com/flock-php/flock/commit/e063ff059a3c23546b25e93423d13f605747d3cf))
+* **services:** read MySQL and MariaDB settings from my.cnf in the data directory ([d9e67db](https://github.com/flock-php/flock/commit/d9e67db55c78d0aac90509736e316e4c78fb01f9)), closes [#88](https://github.com/flock-php/flock/issues/88)
+* **web:** name the site's Caddy directives in flock.yml ([749a56b](https://github.com/flock-php/flock/commit/749a56bdc89cab4108424a4111113af347129998))
+* **web:** support per-site Caddy handlers ([6405360](https://github.com/flock-php/flock/commit/6405360d62ae86c6365d021d5a91149040bda72b))
+
+
+### Bug Fixes
+
+* **daemon:** race condition in caddy server and sharing ([0feb8fa](https://github.com/flock-php/flock/commit/0feb8faf313b669dba6b5195546c0d59fb4cd931))
+* **rustfs:** run RustFS from its data directory so the volume has no space ([8b63364](https://github.com/flock-php/flock/commit/8b63364b0006d66d47e348c9466e0a0da7d5452c))
+* **rustfs:** run RustFS from its data directory so the volume has no space ([d93fac8](https://github.com/flock-php/flock/commit/d93fac895934c6e65c59f9fff4757d63b3809b56)), closes [#62](https://github.com/flock-php/flock/issues/62)
+* **services:** refuse persisted settings Flock manages; MySQL-only docs example ([348458e](https://github.com/flock-php/flock/commit/348458e31bf691fa2dee68f0dcb9a4a59022c413))
+* **web:** address custom handler review findings ([d13a28a](https://github.com/flock-php/flock/commit/d13a28a67dbdf03198e33725336827305bd802a2))
+* **web:** keep a share's rewritten page headers off the handler's goroutine ([14f30ce](https://github.com/flock-php/flock/commit/14f30ce4cd38e0356fcf5fa29bbe7b1ba90c8232))
+* **web:** keep a share's rewritten page headers off the handler's goroutine ([28bf670](https://github.com/flock-php/flock/commit/28bf67094e5f7af0e7f6f2b8054e82b5b078af99)), closes [#100](https://github.com/flock-php/flock/issues/100)
+* **web:** pass a rewritten page's declared trailers on too ([7de0604](https://github.com/flock-php/flock/commit/7de0604c58a6ced8bb8c213e209720759f4d991a))
+* **web:** restore streamed page rewriting from main; [#102](https://github.com/flock-php/flock/issues/102) already fixed the race ([7bc1a95](https://github.com/flock-php/flock/commit/7bc1a950452a74cb3cea781890abbc193b903fe6))
+* **web:** run the remote guard before every handler ([57b8b4b](https://github.com/flock-php/flock/commit/57b8b4b2b84c095164c275c42d783c13bdc01c32))
+
+
+### Refactor
+
+* **web:** use the project Caddyfile ([6c8235e](https://github.com/flock-php/flock/commit/6c8235e565edf629ef52ef289da9a6cf89ea00bd))
+
+
+### Style
+
+* **linux:** format the About pane's support links ([8a4c6f7](https://github.com/flock-php/flock/commit/8a4c6f7f387377de76ff78945b34bd8dcb6684bc))
+
 ## 1.0.0 (2026-11-02)
 
 
