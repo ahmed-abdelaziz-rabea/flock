@@ -352,12 +352,21 @@ private struct SiteList: View {
                     ProxyRow(proxy: proxy) { openProxy(proxy) }
                 }
             }
+            // The content's height, measured in a way macOS 14 has too (onScrollGeometryChange is 15+).
+            .background(GeometryReader { geometry in
+                Color.clear.preference(key: ContentHeightKey.self, value: geometry.size.height)
+            })
         }
-        .onScrollGeometryChange(for: CGFloat.self, of: \.contentSize.height) { _, height in
+        .onPreferenceChange(ContentHeightKey.self) { height in
             contentHeight = height
         }
         .frame(height: min(contentHeight, 240))
     }
+}
+
+private struct ContentHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = max(value, nextValue()) }
 }
 
 private struct SiteRow: View {

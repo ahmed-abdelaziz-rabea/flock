@@ -80,7 +80,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 	<key>CFBundleVersion</key><string>${BUILD}</string>
 	${UPDATES}
 	<key>NSHumanReadableCopyright</key><string>Copyright © Guava s.r.o.</string>
-	<key>LSMinimumSystemVersion</key><string>15.0</string>
+	<key>LSMinimumSystemVersion</key><string>14.0</string>
 	<key>LSUIElement</key><true/>
 	<key>NSHighResolutionCapable</key><true/>
 	<key>NSAppTransportSecurity</key>

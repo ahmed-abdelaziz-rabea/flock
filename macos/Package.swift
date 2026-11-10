@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "FlockBar",
-    platforms: [.macOS(.v15)],
+    platforms: [.macOS(.v14)],
     dependencies: [
         // The app's updates (Updater.swift); build-app.sh embeds and signs the framework.
         .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.10.0"),
