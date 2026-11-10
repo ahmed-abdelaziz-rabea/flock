@@ -3,7 +3,6 @@ package ports
 
 import (
 	"errors"
-	"flock/internal/brand"
 	"fmt"
 	"net"
 	"runtime"
@@ -173,7 +172,7 @@ func Own(h Holder, root string) bool {
 	if h.Path != "" {
 		name = strings.TrimSuffix(strings.ToLower(baseName(h.Path)), ".exe")
 	}
-	return name == "flock" || name == brand.Command || name == "flockd"
+	return name == "flock" || name == "flockd"
 }
 
 // within reports whether path is inside dir, comparing case-insensitively (macOS' and Windows'

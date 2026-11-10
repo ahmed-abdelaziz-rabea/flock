@@ -11,7 +11,7 @@ public enum FlockPaths {
     }
 
     public static var apiJSON: URL { root.appendingPathComponent("api.json") }
-    public static var flockBinary: URL { root.appendingPathComponent("bin/flock-intel") }
+    public static var flockBinary: URL { root.appendingPathComponent("bin/flock") }
 }
 
 /// Contents of api.json, written by the daemon.

@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"flock/internal/brand"
 	"fmt"
 	"io"
 	"net/http"
@@ -150,7 +149,7 @@ func installBinary(root string) (string, error) {
 		return "", err
 	}
 
-	dst := filepath.Join(root, "bin", exeName(brand.Command))
+	dst := filepath.Join(root, "bin", exeName("flock"))
 	if self == dst {
 		return dst, nil
 	}

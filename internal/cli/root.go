@@ -2,7 +2,6 @@
 package cli
 
 import (
-	"flock/internal/brand"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -14,7 +13,7 @@ var Version = "dev"
 // NewRootCommand builds the `flock` command tree.
 func NewRootCommand() *cobra.Command {
 	root := &cobra.Command{
-		Use:           brand.Command,
+		Use:           "flock",
 		Short:         "Flock — a native local Laravel development environment",
 		SilenceUsage:  true,
 		SilenceErrors: false,
@@ -41,7 +40,7 @@ func newVersionCommand() *cobra.Command {
 		Use:   "version",
 		Short: "Print the Flock version",
 		Run: func(cmd *cobra.Command, _ []string) {
-			cmd.Println(brand.Command + " " + Version)
+			cmd.Println("flock " + Version)
 		},
 	}
 }
