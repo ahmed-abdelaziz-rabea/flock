@@ -13,6 +13,10 @@
 # is set. Other builds don't update.
 set -euo pipefail
 
+# Intel Macs download their packages from the binaries fork (internal/binaries.Repo): without it an
+# Intel Mac would follow flock-php/binaries, which has none for it, and silently install nothing.
+: "${BINARIES_REPO:?set BINARIES_REPO=owner/name, the binaries fork with the Intel Mac packages}"
+
 cd "$(dirname "$0")"
 VERSION="${VERSION:-$(git describe --tags --always --dirty 2>/dev/null || echo dev)}"
 OUT="../build/macos"
