@@ -10,9 +10,11 @@
 
 Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Silicon (M1 وM2 وغيرهم) بس. النسخة دي بتخلّيه يشتغل كمان على **الماكات اللي بمعالج Intel**، بنفس كل المميزات.
 
+**تطبيق واحد لكل الماكات:** نفس الملف بيشتغل على Intel وعلى Apple Silicon، والتطبيق بيعرف الجهاز لوحده. على Intel بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وعلى Apple Silicon بينزّلها من Flock الأصلي.
+
 | | Flock الأصلي | Flock Intel |
 |---|---|---|
-| ماك Apple Silicon | ✓ | ✓ |
+| ماك Apple Silicon | ✓ | ✓ (برامج Flock الأصلي) |
 | ماك Intel | ✗ | ✓ |
 | ويندوز وLinux | ✓ | ✗ (استخدم Flock الأصلي) |
 | الأمر في الـ Terminal | `flock` | `flock-intel` |
@@ -22,7 +24,7 @@ Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Si
 
 **[⬇ نزّل آخر نسخة (Flock-Intel.dmg)](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest)**
 
-**المتطلبات:** ماك Intel عليه **macOS 14 (Sonoma) أو أحدث**.
+**المتطلبات:** أي ماك، Intel أو Apple Silicon، عليه **macOS 14 (Sonoma) أو أحدث**.
 
 ## التسطيب
 
@@ -34,6 +36,8 @@ Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Si
 قبل التسطيب: لو عندك Herd أو Valet أو MySQL أو Postgres شغالين من Homebrew، اقفلهم الأول، عشان البورتات ما تتعارضش. Flock مش بيعدّل أي حاجة في Homebrew.
 
 ## المتاح لماك Intel
+
+(على Apple Silicon متاح كل اللي في Flock الأصلي.)
 
 | البرنامج | النسخ |
 |---|---|
@@ -67,7 +71,7 @@ flock-intel uninstall
 
 - Flock بقى يعرف ماك Intel (`macos-x64`)، والتطبيق والـ CLI بقوا بيشتغلوا على المعالجين (universal).
 - بقى بيشتغل على macOS 14 أو أحدث، بدل 15 بس.
-- بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وبيتأكد منها بمفتاح التوقيع بتاعنا.
+- على Intel بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وبيتأكد منها بمفتاح التوقيع بتاعنا (`manifest-intel.pub`). وعلى Apple Silicon بينزّل من Flock الأصلي، بمفتاحهم.
 - الاسم بقى **Flock Intel**، والأمر بقى `flock-intel`، عشان ما يتلخبطش مع Flock الأصلي.
 
 كل التعديلات موجودة في الـ commits على الريبو ده.

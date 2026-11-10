@@ -236,3 +236,21 @@ func TestEmbeddedKeyAndPlatforms(t *testing.T) {
 		}
 	}
 }
+
+func TestSourceForFollowsTheIntelForkOnlyOnIntelMacs(t *testing.T) {
+	defaults := []string{"https://example.test/"}
+	for _, c := range []struct {
+		platform, repo string
+		fork           bool
+	}{
+		{"macos-x64", "someone/binaries", true},
+		{"macos-arm64", "someone/binaries", false},
+		{"linux-x64", "someone/binaries", false},
+		{"macos-x64", "", false},
+	} {
+		bases, key := sourceFor(c.platform, c.repo, defaults, "default-key")
+		if got := bases[0] == "https://github.com/someone/binaries/releases/download/manifest/" && key == intelPublicKey; got != c.fork {
+			t.Errorf("sourceFor(%s, %q) follows the fork: %v, want %v", c.platform, c.repo, got, c.fork)
+		}
+	}
+}

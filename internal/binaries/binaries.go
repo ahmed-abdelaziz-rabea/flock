@@ -38,19 +38,28 @@ var Bases = []string{
 	"https://github.com/flock-php/binaries/releases/download/manifest/",
 }
 
-// Repo, when set at build time (-ldflags "-X flock/internal/binaries.Repo=owner/name"), replaces
-// Bases with that repository's manifest release: for a build that follows a fork of the binaries
-// repository (one adding Intel Macs, say), signed with the key in manifest.pub.
+// Repo, when set at build time (-ldflags "-X flock/internal/binaries.Repo=owner/name"), is a fork
+// of the binaries repository that publishes the Intel Mac packages (macos-x64), signed with the
+// key in manifest-intel.pub. On an Intel Mac, Flock follows it instead of Bases; everywhere else
+// (Apple silicon) it keeps following Flock's own packages and key, so one app works on both.
 var Repo string
-
-func init() {
-	if Repo != "" {
-		Bases = []string{"https://github.com/" + Repo + "/releases/download/manifest/"}
-	}
-}
 
 //go:embed manifest.pub
 var publicKey string
+
+//go:embed manifest-intel.pub
+var intelPublicKey string
+
+func init() { Bases, publicKey = sourceFor(Platform(), Repo, Bases, publicKey) }
+
+// sourceFor returns where a machine of platform reads the manifests and the key they're signed
+// with: Repo's release and its key on an Intel Mac, the defaults everywhere else.
+func sourceFor(platform, repo string, bases []string, key string) ([]string, string) {
+	if repo != "" && platform == "macos-x64" {
+		return []string{"https://github.com/" + repo + "/releases/download/manifest/"}, intelPublicKey
+	}
+	return bases, key
+}
 
 // PublicKey is the key the manifests are signed with.
 func PublicKey() ed25519.PublicKey {
