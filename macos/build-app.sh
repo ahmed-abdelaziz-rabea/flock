@@ -32,8 +32,8 @@ if [[ "$BUILD" != 0 && -n "${SPARKLE_PUBLIC_KEY:-}" ]]; then
 	<key>SUEnableAutomaticChecks</key><true/>"
 fi
 
-# Apple silicon only: Flock doesn't support Intel Macs, and an arm64-only app won't open on one.
-ARCHS=(--arch arm64)
+# Universal: runs on Macs with Apple silicon and on Intel Macs.
+ARCHS=(--arch arm64 --arch x86_64)
 swift build -c release --product FlockBar "${ARCHS[@]}"
 
 APP="$OUT/Flock.app"
@@ -56,8 +56,14 @@ cp Resources/AppIcon.icns Resources/MenuBar*.png Resources/LogoMark*.png "$APP/C
 cp ../LICENSE ../NOTICE ../THIRD_PARTY_NOTICES "$APP/Contents/Resources/"
 
 # The CLI, built like `make build`; `flock install` copies it to the data dir.
-(cd .. && CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags "-s -w -X flock/internal/cli.Version=$VERSION" \
-	-o "build/macos/Flock.app/Contents/MacOS/flock" ./cmd/flock)
+# Universal: an arm64 and an amd64 build, joined with lipo. BINARIES_REPO (owner/name) makes Flock
+# download from that fork of the binaries repository instead of flock-php/binaries.
+for GOARCH in arm64 amd64; do
+	(cd .. && CGO_ENABLED=0 GOOS=darwin GOARCH=$GOARCH go build -ldflags "-s -w -X flock/internal/cli.Version=$VERSION${BINARIES_REPO:+ -X flock/internal/binaries.Repo=$BINARIES_REPO}" \
+		-o "build/macos/flock-$GOARCH" ./cmd/flock)
+done
+lipo -create -output "$APP/Contents/MacOS/flock" ../build/macos/flock-arm64 ../build/macos/flock-amd64
+rm ../build/macos/flock-arm64 ../build/macos/flock-amd64
 
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>

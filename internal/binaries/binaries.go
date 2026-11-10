@@ -38,6 +38,17 @@ var Bases = []string{
 	"https://github.com/flock-php/binaries/releases/download/manifest/",
 }
 
+// Repo, when set at build time (-ldflags "-X flock/internal/binaries.Repo=owner/name"), replaces
+// Bases with that repository's manifest release: for a build that follows a fork of the binaries
+// repository (one adding Intel Macs, say), signed with the key in manifest.pub.
+var Repo string
+
+func init() {
+	if Repo != "" {
+		Bases = []string{"https://github.com/" + Repo + "/releases/download/manifest/"}
+	}
+}
+
 //go:embed manifest.pub
 var publicKey string
 
@@ -130,9 +141,9 @@ func (m *Manifest) Versions(pkg, platform string) []Version {
 	return out
 }
 
-// Platform names this machine in the manifest ("macos-arm64", "windows-x64", "linux-x64"); ""
-// where Flock publishes no packages (Flock supports Apple Silicon Macs, Windows x64 and Linux on
-// x64 and arm64).
+// Platform names this machine in the manifest ("macos-arm64", "macos-x64", "windows-x64",
+// "linux-x64"); "" where Flock publishes no packages (Flock supports Macs with Apple silicon or
+// Intel, Windows x64 and Linux on x64 and arm64).
 func Platform() string {
 	return platform(runtime.GOOS, runtime.GOARCH)
 }
@@ -141,6 +152,8 @@ func platform(goos, goarch string) string {
 	switch {
 	case goos == "darwin" && goarch == "arm64":
 		return "macos-arm64"
+	case goos == "darwin" && goarch == "amd64":
+		return "macos-x64"
 	case goos == "windows" && goarch == "amd64":
 		return "windows-x64"
 	case goos == "linux" && goarch == "amd64":
