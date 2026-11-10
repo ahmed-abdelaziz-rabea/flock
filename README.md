@@ -1,34 +1,35 @@
 <div dir="rtl">
 
-# Flock Intel
+# Flock مع دعم ماكات Intel
 
-> **Flock على ماكات Intel.** النسخة دي مبنية بالكامل على [Flock](https://github.com/flock-php/flock) الأصلي بتاع [flock-php](https://github.com/flock-php). الفضل كله لأصحاب المشروع، وإحنا ضفنا بس دعم ماكات Intel.
+> **ده [Flock](https://github.com/flock-php/flock) نفسه، ومعاه دعم ماكات Intel.** المشروع كله بتاع [flock-php](https://github.com/flock-php)، والفضل كله لأصحابه. إحنا ضفنا بس إنه يشتغل على الماكات اللي بمعالج Intel.
 >
-> *Flock for Intel Macs: a fork of [flock-php/flock](https://github.com/flock-php/flock) that adds Intel (x86_64) Mac support. All credit for Flock goes to its authors.*
+> *Flock, with Intel Mac support: a fork of [flock-php/flock](https://github.com/flock-php/flock) that adds Intel (x86_64) Macs. All credit for Flock goes to its authors.*
 
 ## ليه النسخة دي؟
 
-Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Silicon (M1 وM2 وغيرهم) بس. النسخة دي بتخلّيه يشتغل كمان على **الماكات اللي بمعالج Intel**، بنفس كل المميزات.
+Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Silicon (M1 وM2 وغيرهم) بس. النسخة دي بتشتغل كمان على **الماكات اللي بمعالج Intel**، بنفس الاسم ونفس الأوامر ونفس المميزات.
 
 **تطبيق واحد لكل الماكات:** نفس الملف بيشتغل على Intel وعلى Apple Silicon، والتطبيق بيعرف الجهاز لوحده. على Intel بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وعلى Apple Silicon بينزّلها من Flock الأصلي.
 
-| | Flock الأصلي | Flock Intel |
+| | Flock الأصلي | النسخة دي |
 |---|---|---|
 | ماك Apple Silicon | ✓ | ✓ (برامج Flock الأصلي) |
 | ماك Intel | ✗ | ✓ |
-| ويندوز وLinux | ✓ | ✗ (استخدم Flock الأصلي) |
-| الأمر في الـ Terminal | `flock` | `flock-intel` |
-| اسم التطبيق | Flock | Flock Intel |
+| أقل نسخة macOS | 15 | 14 |
+| ويندوز وLinux | ✓ | استخدم Flock الأصلي |
+
+النسخة دي **بديل** عن Flock الأصلي، مش بتتسطّب جنبه. لو عندك Flock الأصلي على ماك M، خليك عليه، مش محتاج النسخة دي.
 
 ## التحميل
 
-**[⬇ نزّل آخر نسخة (Flock-Intel.dmg)](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest)**
+**[⬇ نزّل آخر نسخة (Flock.dmg)](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest)**
 
 **المتطلبات:** أي ماك، Intel أو Apple Silicon، عليه **macOS 14 (Sonoma) أو أحدث**.
 
 ## التسطيب
 
-1. افتح `Flock-Intel.dmg`، واسحب **Flock Intel** لفولدر Applications.
+1. افتح `Flock.dmg`، واسحب **Flock** لفولدر Applications.
 2. أول مرة الماك هيرفض يفتحه، لأنه مش موقّع من Apple. روح **System Settings ← Privacy & Security**، واضغط **Open Anyway**.
 3. افتح التطبيق، واضغط **Set up**. هيطلب منك باسورد الجهاز عشان إعدادات دومينات `.test` وشهادة HTTPS.
 4. سطّب اللي محتاجه من التطبيق.
@@ -57,24 +58,20 @@ Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Si
 
 ## الأوامر
 
-نفس أوامر Flock، بس اسم الأمر `flock-intel` بدل `flock`:
+نفس أوامر Flock الأصلي بالظبط، وكل الشرح على [flockphp.com/docs](https://flockphp.com/docs/quick-start) ينطبق:
 
 ```bash
-flock-intel version
-flock-intel --help
-flock-intel uninstall
+flock --help
+flock uninstall
 ```
-
-`flock-intel uninstall` بيشيل Flock Intel ويرجّع الجهاز زي ما كان. وبيسيب الداتابيز وإعدادات المواقع، إلا لو ضفت `--purge`.
 
 ## اللي اتغيّر عن Flock الأصلي
 
 - Flock بقى يعرف ماك Intel (`macos-x64`)، والتطبيق والـ CLI بقوا بيشتغلوا على المعالجين (universal).
 - بقى بيشتغل على macOS 14 أو أحدث، بدل 15 بس.
 - على Intel بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وبيتأكد منها بمفتاح التوقيع بتاعنا (`manifest-intel.pub`). وعلى Apple Silicon بينزّل من Flock الأصلي، بمفتاحهم.
-- الاسم بقى **Flock Intel**، والأمر بقى `flock-intel`، عشان ما يتلخبطش مع Flock الأصلي.
 
-كل التعديلات موجودة في الـ commits على الريبو ده.
+غير كده، الاسم والأوامر والإعدادات زي Flock الأصلي بالظبط. وكل التعديلات موجودة في الـ commits على الريبو ده.
 
 ## الرخصة
 
@@ -84,7 +81,7 @@ Flock مرخّص بـ [AGPL-3.0](LICENSE)، والنسخة دي كمان بنف�
 
 ---
 
-> **تحت ده شرح Flock الأصلي زي ما أصحابه كاتبينه.** الشرح كله ينطبق على Flock Intel، بس الأمر عندنا `flock-intel` بدل `flock`، والتحميل من [هنا](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest) بدل flockphp.com.
+> **تحت ده شرح Flock الأصلي زي ما أصحابه كاتبينه.** الشرح كله ينطبق على النسخة دي، بس التحميل لماك Intel من [هنا](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest).
 >
 > *Below is the original Flock README, unchanged.*
 
