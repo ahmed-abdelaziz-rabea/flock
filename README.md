@@ -1,3 +1,89 @@
+<div dir="rtl">
+
+# Flock Intel
+
+> **Flock على ماكات Intel.** النسخة دي مبنية بالكامل على [Flock](https://github.com/flock-php/flock) الأصلي بتاع [flock-php](https://github.com/flock-php). الفضل كله لأصحاب المشروع، وإحنا ضفنا بس دعم ماكات Intel.
+>
+> *Flock for Intel Macs: a fork of [flock-php/flock](https://github.com/flock-php/flock) that adds Intel (x86_64) Mac support. All credit for Flock goes to its authors.*
+
+## ليه النسخة دي؟
+
+Flock الأصلي بيشتغل على الماك اللي بمعالج Apple Silicon (M1 وM2 وغيرهم) بس. النسخة دي بتخلّيه يشتغل كمان على **الماكات اللي بمعالج Intel**، بنفس كل المميزات.
+
+| | Flock الأصلي | Flock Intel |
+|---|---|---|
+| ماك Apple Silicon | ✓ | ✓ |
+| ماك Intel | ✗ | ✓ |
+| ويندوز وLinux | ✓ | ✗ (استخدم Flock الأصلي) |
+| الأمر في الـ Terminal | `flock` | `flock-intel` |
+| اسم التطبيق | Flock | Flock Intel |
+
+## التحميل
+
+**[⬇ نزّل آخر نسخة (Flock-Intel.dmg)](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest)**
+
+**المتطلبات:** ماك Intel عليه **macOS 14 (Sonoma) أو أحدث**.
+
+## التسطيب
+
+1. افتح `Flock-Intel.dmg`، واسحب **Flock Intel** لفولدر Applications.
+2. أول مرة الماك هيرفض يفتحه، لأنه مش موقّع من Apple. روح **System Settings ← Privacy & Security**، واضغط **Open Anyway**.
+3. افتح التطبيق، واضغط **Set up**. هيطلب منك باسورد الجهاز عشان إعدادات دومينات `.test` وشهادة HTTPS.
+4. سطّب اللي محتاجه من التطبيق.
+
+قبل التسطيب: لو عندك Herd أو Valet أو MySQL أو Postgres شغالين من Homebrew، اقفلهم الأول، عشان البورتات ما تتعارضش. Flock مش بيعدّل أي حاجة في Homebrew.
+
+## المتاح لماك Intel
+
+| البرنامج | النسخ |
+|---|---|
+| PHP | 8.1، 8.2، 8.3، 8.4، 8.5 |
+| FrankenPHP | 8.2، 8.3، 8.4، 8.5 |
+| MySQL | 8.0، 9.7 |
+| PostgreSQL | 14، 15، 16، 17، 18 |
+| MariaDB | 10.11، 11.4، 11.8، 12.3 |
+| MongoDB | 7.0، 8.0، 9.0 |
+| Node.js | 16، 18، 20، 22، 24، 26 |
+| Redis وValkey | Redis 7.2 و7.4 و8.4 و8.10، وValkey 9.1 |
+| Meilisearch وTypesense | آخر النسخ |
+
+**مش متاح على Intel:** MySQL 8.4 (Oracle مش بتنزّل له نسخة ماك Intel)، وRustFS، وإضافات Postgres (PostGIS وpgvector وغيرهم).
+
+البرامج دي بتتبني وتتختبر على أجهزة ماك Intel عند GitHub، في ريبو [ahmed-abdelaziz-rabea/binaries](https://github.com/ahmed-abdelaziz-rabea/binaries). والبناء بيشتغل لوحده كل يوم، فأي إصدار جديد بيوصل أوتوماتيك. وكل ملف موقّع، والتطبيق بيرفض أي ملف التوقيع بتاعه مش مطابق.
+
+## الأوامر
+
+نفس أوامر Flock، بس اسم الأمر `flock-intel` بدل `flock`:
+
+```bash
+flock-intel version
+flock-intel --help
+flock-intel uninstall
+```
+
+`flock-intel uninstall` بيشيل Flock Intel ويرجّع الجهاز زي ما كان. وبيسيب الداتابيز وإعدادات المواقع، إلا لو ضفت `--purge`.
+
+## اللي اتغيّر عن Flock الأصلي
+
+- Flock بقى يعرف ماك Intel (`macos-x64`)، والتطبيق والـ CLI بقوا بيشتغلوا على المعالجين (universal).
+- بقى بيشتغل على macOS 14 أو أحدث، بدل 15 بس.
+- بينزّل البرامج من ريبو [binaries](https://github.com/ahmed-abdelaziz-rabea/binaries) بتاعنا، وبيتأكد منها بمفتاح التوقيع بتاعنا.
+- الاسم بقى **Flock Intel**، والأمر بقى `flock-intel`، عشان ما يتلخبطش مع Flock الأصلي.
+
+كل التعديلات موجودة في الـ commits على الريبو ده.
+
+## الرخصة
+
+Flock مرخّص بـ [AGPL-3.0](LICENSE)، والنسخة دي كمان بنفس الرخصة، والكود كله متاح هنا.
+
+</div>
+
+---
+
+> **تحت ده شرح Flock الأصلي زي ما أصحابه كاتبينه.** الشرح كله ينطبق على Flock Intel، بس الأمر عندنا `flock-intel` بدل `flock`، والتحميل من [هنا](https://github.com/ahmed-abdelaziz-rabea/flock/releases/latest) بدل flockphp.com.
+>
+> *Below is the original Flock README, unchanged.*
+
 <p align="center">
   <img src="design/logo/flock-app-icon.svg" alt="Flock app icon" width="96" height="96">
 </p>
