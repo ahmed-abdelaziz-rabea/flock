@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"flock/internal/brand"
 	"fmt"
 	"os"
 	"os/exec"
@@ -79,7 +80,7 @@ func DefaultEnv(root string) (Env, error) {
 // Executable is the flock binary clients should start: the one `flock install` copied into
 // <root>/bin, which stays put across updates, or else the running one.
 func Executable(root string) string {
-	exe := "flock"
+	exe := brand.Command
 	if runtime.GOOS == "windows" {
 		exe += ".exe"
 	}

@@ -36,7 +36,7 @@ fi
 ARCHS=(--arch arm64 --arch x86_64)
 swift build -c release --product FlockBar "${ARCHS[@]}"
 
-APP="$OUT/Flock.app"
+APP="$OUT/Flock Intel.app"
 BIN="$(swift build -c release "${ARCHS[@]}" --show-bin-path)"
 
 # FlockScreenshots (demo data, a fake daemon) uses the app's views for the docs' screenshots; none
@@ -62,7 +62,7 @@ for GOARCH in arm64 amd64; do
 	(cd .. && CGO_ENABLED=0 GOOS=darwin GOARCH=$GOARCH go build -ldflags "-s -w -X flock/internal/cli.Version=$VERSION${BINARIES_REPO:+ -X flock/internal/binaries.Repo=$BINARIES_REPO}" \
 		-o "build/macos/flock-$GOARCH" ./cmd/flock)
 done
-lipo -create -output "$APP/Contents/MacOS/flock" ../build/macos/flock-arm64 ../build/macos/flock-amd64
+lipo -create -output "$APP/Contents/MacOS/flock-intel" ../build/macos/flock-arm64 ../build/macos/flock-amd64
 rm ../build/macos/flock-arm64 ../build/macos/flock-amd64
 
 cat > "$APP/Contents/Info.plist" <<PLIST
@@ -71,8 +71,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key><string>dev.flock.bar</string>
-	<key>CFBundleName</key><string>Flock</string>
-	<key>CFBundleDisplayName</key><string>Flock</string>
+	<key>CFBundleName</key><string>Flock Intel</string>
+	<key>CFBundleDisplayName</key><string>Flock Intel</string>
 	<key>CFBundleExecutable</key><string>FlockBar</string>
 	<key>CFBundleIconFile</key><string>AppIcon</string>
 	<key>CFBundlePackageType</key><string>APPL</string>
@@ -111,10 +111,10 @@ SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
 "${SIGN[@]}" "$SPARKLE/Versions/B/Autoupdate"
 "${SIGN[@]}" "$SPARKLE/Versions/B/Updater.app"
 "${SIGN[@]}" "$SPARKLE"
-"${SIGN[@]}" "$APP/Contents/MacOS/flock"
+"${SIGN[@]}" "$APP/Contents/MacOS/flock-intel"
 "${SIGN[@]}" "$APP"
 codesign --verify --strict --deep "$APP"
-echo "built $(cd "$OUT" && pwd)/Flock.app"
+echo "built $(cd "$OUT" && pwd)/Flock Intel.app"
 
 if [[ "${SKIP_DMG:-}" == 1 ]]; then
 	exit 0
@@ -122,12 +122,12 @@ fi
 
 # The disk image: the app next to a link to /Applications, to drag it there.
 STAGE="$OUT/dmg"
-DMG="$OUT/Flock.dmg"
+DMG="$OUT/Flock-Intel.dmg"
 rm -rf "$STAGE" "$DMG"
 mkdir -p "$STAGE"
 cp -R "$APP" "$STAGE/"
 ln -s /Applications "$STAGE/Applications"
-hdiutil create -quiet -volname "Flock" -srcfolder "$STAGE" -fs HFS+ -format UDZO -ov "$DMG"
+hdiutil create -quiet -volname "Flock Intel" -srcfolder "$STAGE" -fs HFS+ -format UDZO -ov "$DMG"
 rm -rf "$STAGE"
 
 if [[ "$SIGN_IDENTITY" != - ]]; then
@@ -147,4 +147,4 @@ if [[ -n "${NOTARY_KEY_PATH:-}" ]]; then
 	xcrun stapler staple "$DMG"
 	spctl --assess --type open --context context:primary-signature --verbose "$DMG"
 fi
-echo "built $(cd "$OUT" && pwd)/Flock.dmg"
+echo "built $(cd "$OUT" && pwd)/Flock-Intel.dmg"

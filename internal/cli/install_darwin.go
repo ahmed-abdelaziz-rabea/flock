@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"flock/internal/brand"
 	"fmt"
 	"os"
 	"os/exec"
@@ -451,9 +452,9 @@ func stopApp() {
 
 // appLocations are where the app is installed from the DMG.
 var appLocations = func() []string {
-	locations := []string{"/Applications/Flock.app"}
+	locations := []string{"/Applications/" + brand.App + ".app"}
 	if home, err := os.UserHomeDir(); err == nil {
-		locations = append(locations, filepath.Join(home, "Applications", "Flock.app"))
+		locations = append(locations, filepath.Join(home, "Applications", brand.App+".app"))
 	}
 	return locations
 }

@@ -21,7 +21,7 @@ public struct Installation: Sendable {
 
     /// The installation of the running app.
     public static var current: Installation {
-        let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("flock")
+        let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("flock-intel")
         return Installation(bundledFlock: bundled.flatMap { FileManager.default.isExecutableFile(atPath: $0.path) ? $0 : nil })
     }
 

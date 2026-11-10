@@ -270,7 +270,7 @@ private struct UninstallSheet: View {
                 Text("Flock was uninstalled").font(.headline)
                 Text(model.installedAppURL == nil
                     ? "This copy of the app isn't in an Applications folder, so it stays where it is; delete it yourself. Open a new terminal: Flock is no longer on its PATH."
-                    : "Quitting moves Flock.app to the Trash. Open a new terminal: Flock is no longer on its PATH.")
+                    : "Quitting moves Flock Intel.app to the Trash. Open a new terminal: Flock is no longer on its PATH.")
                     .fixedSize(horizontal: false, vertical: true)
                 log
                 HStack {
